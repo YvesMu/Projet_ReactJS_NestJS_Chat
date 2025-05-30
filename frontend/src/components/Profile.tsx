@@ -23,7 +23,7 @@ export default function Profile() {
     fetchColor();
   }, [token]);
 
-  const handleChangeColor = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeColor = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newColor = e.target.value;
     setColor(newColor);
     setMessage('');
@@ -36,26 +36,99 @@ export default function Profile() {
         { color },
         { headers: { Authorization: `Bearer ${token}` } },
       );
-      setMessage('Couleur sauvegardée !');
+      setMessage('✅ Couleur sauvegardée !');
     } catch (err) {
-      setMessage('Erreur lors de la sauvegarde.');
+      setMessage('❌ Erreur lors de la sauvegarde.');
       console.error(err);
     }
   };
 
-  if (loading) return <p>Chargement...</p>;
+  if (loading) return <p style={{ textAlign: 'center', marginTop: '2rem' }}>Chargement...</p>;
 
   return (
-    <div style={{ padding: '1rem' }}>
-      <h2>Profil utilisateur</h2>
-      <label>
-        Choisir la couleur de ton profil :
-        <input type="color" value={color} onChange={handleChangeColor} style={{ marginLeft: '1rem' }} />
-      </label>
-      <div style={{ marginTop: '1rem' }}>
-        <button onClick={handleSave}>Sauvegarder</button>
+    <div
+      style={{
+        minHeight: '90vh',
+        width: '100vw',
+        backgroundColor: '#f3f4f6',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: '2rem',
+      }}
+    >
+      <div
+        style={{
+          backgroundColor: '#ffffff',
+          padding: '3rem',
+          borderRadius: '1rem',
+          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+          width: '100%',
+          maxWidth: '1200px',
+        }}
+      >
+        <h2 style={{ fontSize: '2rem', marginBottom: '2rem', color: '#111827', textAlign: 'center' }}>
+          Mon Profil
+        </h2>
+
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <label
+            htmlFor="color"
+            style={{ marginBottom: '1rem', fontWeight: 'bold', color: '#374151', fontSize: '1.1rem' }}
+          >
+            Choisir la couleur de ton profil :
+          </label>
+
+          <input
+            type="color"
+            id="color"
+            value={color}
+            onChange={handleChangeColor}
+            style={{
+              width: '80px',
+              height: '80px',
+              border: 'none',
+              borderRadius: '50%',
+              cursor: 'pointer',
+              boxShadow: '0 2px 6px rgba(0, 0, 0, 0.15)',
+            }}
+          />
+
+          <button
+            onClick={handleSave}
+            style={{
+              marginTop: '2rem',
+              padding: '0.75rem 2rem',
+              backgroundColor: '#3b82f6',
+              color: '#fff',
+              border: 'none',
+              borderRadius: '8px',
+              fontSize: '1rem',
+              cursor: 'pointer',
+              fontWeight: 'bold',
+              transition: 'background-color 0.2s ease',
+            }}
+            onMouseOver={(e) => (e.currentTarget.style.backgroundColor = '#2563eb')}
+            onMouseOut={(e) => (e.currentTarget.style.backgroundColor = '#3b82f6')}
+          >
+            Sauvegarder
+          </button>
+
+          {message && (
+            <p
+              style={{
+                marginTop: '1rem',
+                textAlign: 'center',
+                fontWeight: 'bold',
+                color: message.startsWith('✅') ? 'green' : 'red',
+              }}
+            >
+              {message}
+            </p>
+          )}
+        </div>
       </div>
-      {message && <p>{message}</p>}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from '../api/axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function Login() {
   const [username, setUsername] = useState('');
@@ -42,13 +42,15 @@ export default function Login() {
         }}
       >
         <form onSubmit={handleSubmit}>
-          <h2 style={{
-            fontSize: 28,
-            marginBottom: 32,
-            textAlign: 'center',
-            color: 'black',
-            fontWeight: 'bold'
-          }}>
+          <h2
+            style={{
+              fontSize: 28,
+              marginBottom: 32,
+              textAlign: 'center',
+              color: 'black',
+              fontWeight: 'bold',
+            }}
+          >
             Connexion
           </h2>
 
@@ -69,7 +71,7 @@ export default function Login() {
               onChange={(e) => setUsername(e.target.value)}
               required
               style={{
-                width: '90%',
+                width: '95%',
                 padding: '12px 14px',
                 border: '1px solid #ccc',
                 borderRadius: 7,
@@ -96,7 +98,7 @@ export default function Login() {
               onChange={(e) => setPassword(e.target.value)}
               required
               style={{
-                width: '90%',
+                width: '95%',
                 padding: '12px 14px',
                 border: '1px solid #ccc',
                 borderRadius: 6,
@@ -115,7 +117,7 @@ export default function Login() {
           <button
             type="submit"
             style={{
-              width: '90%',
+              width: '100%',
               padding: '14px 0',
               backgroundColor: '#3b82f6',
               color: '#fff',
@@ -128,6 +130,13 @@ export default function Login() {
           >
             Se connecter
           </button>
+
+          <p style={{ marginTop: '1rem', textAlign: 'center', fontSize: 14 }}>
+            Pas encore de compte ?{' '}
+            <Link to="/register" style={{ color: '#3b82f6', textDecoration: 'underline' }}>
+              Créer un compte
+            </Link>
+          </p>
         </form>
       </div>
     </div>

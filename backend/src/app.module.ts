@@ -14,7 +14,7 @@ import { ChatModule } from './chat/chat.module';
       password: 'root',
       database: 'chat_app',
       autoLoadEntities: true,
-      synchronize: true, // ❗ à désactiver en production
+      synchronize: true, 
     }),
     UserModule,
     AuthModule,
